@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #042e40;
+      }
+    </style>
+  </defs>
+  <circle id="Elipse" class="cls-2" cx="15" cy="15" r="15"/>
+  <path id="Polígono-2" class="cls-1" d="M10.37,16.4c-.98-.51-1.36-1.72-.85-2.7.19-.36.49-.66.85-.85l5.62-2.93c.98-.51,2.19-.13,2.7.85.15.29.23.6.23.92v5.85c0,1.1-.89,2-2,2-.32,0-.64-.08-.93-.23l-5.62-2.93Z"/>
+</svg>

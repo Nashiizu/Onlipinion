@@ -1,0 +1,277 @@
+.buttonLogin {
+    height: 30px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: 0 solid #F2E3D5;
+    background-color: #3CA6A6;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 15px;
+    margin-right:15px ;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    justify-content: center;
+    text-transform: uppercase;
+    color: #F2E3D5;
+    font-family: 'Ubuntu';
+    padding: 10px;
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+@media (max-width: 1000px) {
+    .buttonLogin {
+        display: none;
+    }
+}
+
+.buttonLogin:hover {
+    background-color: #F2E3D5;
+    color: #3CA6A6;
+}
+
+.buttonRegisterProducts {
+    height: 30px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: 0 solid #F2E3D5;
+    background-color: #3CA6A6;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Adicione esta linha para centralizar o texto horizontalmente */
+    padding: 10px;
+    font-size: 10px;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Ubuntu';
+    text-transform: uppercase;
+    white-space: nowrap; /* Adicione esta linha */
+    flex-wrap: nowrap; /* Adicione esta linha */
+    text-overflow: ellipsis;
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.buttonRegisterProducts:hover {
+    background-color: #F2E3D5;
+    color: #3CA6A6;
+}
+
+.buttonReviews {
+    height: 30px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: 0 solid #F2E3D5;
+    background-color: #3CA6A6;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center; /* Adicione esta linha para centralizar o texto horizontalmente */
+    font-size: 10px;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Ubuntu';
+    text-transform: uppercase;
+    white-space: nowrap; /* Adicione esta linha */
+    flex-wrap: nowrap; /* Adicione esta linha */
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.buttonReviews:hover {
+    background-color: #F2E3D5;
+    color: #3CA6A6;
+}
+
+.buttonEnter {
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: 0 solid #F2E3D5;
+    background-color: #012E40;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    font-size: 10px;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Ubuntu';
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.buttonEnter:hover {
+    color: #F2E3D5;
+    background-color: #3CA6A6;
+}
+
+.buttonRegister {
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 100px;
+    border: 0 solid #F2E3D5;
+    background-color: #012E40;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    font-size: 10px;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Ubuntu';
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.buttonRegister:hover {
+    color: #F2E3D5;
+    background-color: #3CA6A6;
+}
+
+.buttonAreaHeader {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+@media (max-width: 800px) {
+    .buttonAreaHeader {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.buttonAreaBanner {
+    width: 100%;
+    height: 30px;
+    margin-left: 60px;
+    margin-top: 15px;
+    display: block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.buttonAreaFooter {
+    width: 100%px;
+    height: 33px;
+}
+
+.buttonSend {
+    width: 100%;
+    height: 30px;
+    font-size: 10px;
+    cursor: pointer;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 100px;
+    font-family: 'Ubuntu';
+    text-transform: uppercase;
+    border: 0 solid #F2E3D5;
+    background-color: #3CA6A6;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.Logo{
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonBack {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonClose {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonLogoScrollToTop {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonScrollToTop {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonInstagramScrollToTop {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonInstagramLogoScrollToTop {
+    cursor: pointer;
+    border: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
+}
+
+.buttonUser {
+    background-color: transparent;
+    cursor: pointer;
+    height: 30px;
+    border: 0 solid;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 15px;
+    margin-right:15px ;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    justify-content: center;
+    text-transform: uppercase;
+    color: #F2E3D5;
+    font-family: 'Ubuntu';
+    flex-direction: column;
+}

@@ -1,0 +1,61 @@
+.pesquisarForm {
+  height: 30px;
+  width: 200px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+@media (max-width: 1000px) {
+  .pesquisarForm {
+    display: none;
+  }
+}
+
+.pesquisarInput {
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 31px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  outline: none;
+  background-color: transparent;
+  color: #F2E3D5;
+  font-size: 10px;
+  font-family: 'Ubuntu';
+  text-transform: uppercase;
+}
+
+.areaLupa {
+  height: 16px;
+  width: 16px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.lupa {
+  height: 100%;
+  width: 100%;
+}
+
+.searchBarMenu {
+  display: flex;
+}
+
+@media (max-width: 1000px) {
+  .searchBarMenu {
+    height: 30px;
+    width: 200px;
+    position: relative;
+    align-items: center;
+    display: flex;
+    margin: 30px;
+  }
+}

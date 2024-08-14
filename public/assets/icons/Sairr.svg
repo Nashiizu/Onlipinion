@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.82 29.82">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #042e40;
+        stroke-linecap: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Botão_Sair">
+    <line id="Linha_02" class="cls-1" x1="28.82" y1="1" x2="1" y2="28.82"/>
+    <line id="Linha_01" class="cls-1" x1="28.82" y1="28.82" x2="1" y2="1"/>
+  </g>
+</svg>
