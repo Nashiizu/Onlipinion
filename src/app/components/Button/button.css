@@ -257,15 +257,12 @@
 .buttonUser {
     background-color: transparent;
     cursor: pointer;
-    height: 30px;
     border: 0 solid;
     display: flex;
     align-items: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 15px;
-    margin-right:15px ;
     text-align: center;
     font-size: 10px;
     font-weight: bold;
@@ -274,4 +271,8 @@
     color: #F2E3D5;
     font-family: 'Ubuntu';
     flex-direction: column;
+    margin-top: 24.5px;
+    margin-bottom: 24.5px;
+    margin-left: 15px;
+    margin-right: 15px;
 }

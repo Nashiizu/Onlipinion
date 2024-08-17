@@ -1,14 +1,12 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 import "./login.css";
 import Button from "../Button/Button";
 
-interface LoginProps {
-    setUserName: (name: string) => void; // Tipo da prop
-}
-
-function Login({ setUserName }: LoginProps) {
+function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [error, setError] = useState(""); // Estado para armazenar mensagens de erro
 
     async function handleLogin() {
         const loginData = {
@@ -28,19 +26,21 @@ function Login({ setUserName }: LoginProps) {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Login bem-sucedido:", data);
-
-                // Atualiza o estado com o nome do usuário, se disponível
-                if (data.userName) {
-                    setUserName(data.userName); // Atualiza o estado na Navbar
-                } else {
-                    console.error("'userName' não está definido");
-                }
-
+                Cookies.set("token", data.token);
+                window.location.reload(); // Recarrega a página
             } else {
-                console.error("Erro ao fazer login:", response.statusText);
+                const errorData = await response.json();
+                setError(errorData.error || "Erro desconhecido"); // Define a mensagem de erro
+                console.error("Erro ao fazer login:", errorData.error);
             }
         } catch (error) {
-            console.error("Erro de rede:", error);
+            if (error instanceof Error) {
+                setError("Erro de rede: " + error.message); // Define a mensagem de erro
+                console.error("Erro de rede:", error.message);
+            } else {
+                setError("Erro de rede: desconhecido"); // Mensagem padrão para erro desconhecido
+                console.error("Erro de rede desconhecido:", error);
+            }
         }
     }
 
@@ -66,6 +66,7 @@ function Login({ setUserName }: LoginProps) {
             />
             <Button className="buttonEnter marginFillBar" onClick={handleLogin}>Entrar</Button>
             <Button className="buttonRegister marginFillBar">Cadastrar</Button>
+            {error && <p className="error-message">{error}</p>} {/* Exibe a mensagem de erro */}
         </div>
     );
 }

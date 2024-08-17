@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import Sair from "../../../../public/assets/icons/Sair.svg";
 import Login from "../Login/Login";
-import Box from "../Box/box";
+import Cookies from "js-cookie";
 
 function Navbar() {
   const router = useRouter();
@@ -18,7 +18,43 @@ function Navbar() {
   const [showSquare, setShowSquare] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [userName, setUserName] = useState('');
-  const [showUserSquare, setShowUserSquare] = useState(false); // Estado para controle do quadrado abaixo do botão
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const fetchUserData = async () => {
+    try {
+      const token = Cookies.get('token');
+  
+      if (!token) {
+        console.error("Token não encontrado nos cookies.");
+        return;
+      }
+  
+      const response = await fetch("http://localhost:3001/user/me", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token })
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setUserName(data.name);
+      } else {
+        console.error("Failed to fetch user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
@@ -47,15 +83,11 @@ function Navbar() {
     setTimeout(() => {
       setShowSquare(false);
       setAnimationClass('');
-    }, 300); // Tempo deve ser igual ao tempo da animação no CSS
+    }, 300);
   };
 
   const handleShowSquare = () => {
     setShowSquare(true);
-  };
-
-  const handleUserButtonClick = () => {
-    setShowUserSquare(!showUserSquare); // Alterna a visibilidade do quadrado
   };
 
   useEffect(() => {
@@ -64,8 +96,12 @@ function Navbar() {
     }
   }, [showSquare]);
 
+  const handleSignOut = () => {
+    Cookies.remove('token');
+    window.location.reload();
+  };
+
   return (
-    <>
     <nav className="navbar">
       <div className="backgroundNavbar">
         <div className="navbarArea">
@@ -79,17 +115,24 @@ function Navbar() {
           <Text className="textNavbarAbout">sobre</Text>
           <Text className="textNavbarContact">contato</Text>
           <SearchBar />
-          <Button className="buttonLogin textButtonLogin" onClick={handleShowSquare}>login</Button>
-          <Button className="buttonUser" onClick={handleUserButtonClick}>
-            {userName && <div id="name">{userName}</div>}
-            {showUserSquare && (
-              <div className="userSquare">
-                {/* Adicione o conteúdo do quadrado aqui, se necessário */}
+          {!userName && <Button className="buttonLogin textButtonLogin" onClick={handleShowSquare}>login</Button>}
+          <div className="buttonUserWrapper">
+            {userName && (
+              <Button className="buttonUser">
+                <span id="name" onClick={toggleDropdown}>{userName}</span>
+              </Button>
+            )}
+            {showDropdown && (
+              <div className="dropdownMenu">
+                <ul>
+                  <li>Perfil</li>
+                  <li>Configurações</li>
+                  <li onClick={handleSignOut}>Sair</li>
+                </ul>
               </div>
             )}
-          </Button>
+          </div>
 
-          {/* Exibir o fundo com desfoque e o quadrado central se showSquare for true */}
           {showSquare && (
             <>
               <div className={`background-full ${animationClass}`} onClick={handleCloseSquare}></div>
@@ -105,19 +148,15 @@ function Navbar() {
                   </div>
                   <Text className="titleLogin colorGreenDark">Entre para ver o melhor do Onlipinion</Text>
                   <div className="rowLogin3">
-                    <Login setUserName={setUserName} />
+                    <Login />
                   </div>
                 </div>
               </div>
             </>
           )}
-
-          {/* Quadrado que aparece abaixo do botão */}
         </div>
-        <Box className="boxTest" />
       </div>
     </nav>
-    </>
   );
 }
 

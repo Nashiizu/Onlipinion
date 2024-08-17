@@ -111,11 +111,6 @@ a {
     justify-content: space-between;
 }
 
-.styleImgBack {
-    width: 30px;
-    height: 30px;
-}
-
 .styleImgClose {
     width: 25px;
     height: 25px;
@@ -128,27 +123,38 @@ a {
     text-transform: uppercase;
   }
 
-  /* Adiciona o estilo para o quadrado abaixo do botão */
-.userSquare {
-    position: absolute; /* Ajuste o posicionamento conforme necessário */
-    bottom: -100px; /* Ajuste a distância abaixo do botão */
-    left: 0;
-    width: 150px; /* Ajuste a largura conforme necessário */
-    height: 100px; /* Ajuste a altura conforme necessário */
-    background-color: #f0f0f0; /* Ajuste a cor de fundo conforme necessário */
-    border: 1px solid #ccc; /* Ajuste a borda conforme necessário */
-    border-radius: 8px; /* Ajuste o arredondamento dos cantos conforme necessário */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicione sombra, se desejar */
-    z-index: 100; /* Certifique-se de que o quadrado esteja acima de outros elementos */
+  .buttonUserWrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 203%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Alinhamento exato ao centro */
+    background-color: #031017;
+    border: 1px solid transparent;
+    border-radius: 0 0 10px 10px;
+    font-size: 10px;
+    color: #F2E3D5;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
   }
 
-  .boxTest {
-    width: 100px;
-    height: 100px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 20%);
-    display: flex;
-    justify-content: flex-end;
-}
+  .dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px;
+  }
   
+  .dropdownMenu li {
+    padding: 15px 15px;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu li:hover {
+    background-color: #3CA6A6;
+    border-radius: 10px;
+  }
