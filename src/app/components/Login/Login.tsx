@@ -3,72 +3,85 @@ import Cookies from "js-cookie";
 import "./login.css";
 import Button from "../Button/Button";
 
-function Login() {
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [error, setError] = useState(""); // Estado para armazenar mensagens de erro
+interface LoginProps {
+  onLogin: (name: string, lastName: string) => void; // Atualize para incluir o sobrenome
+  onRegister: () => void;
+}
 
-    async function handleLogin() {
-        const loginData = {
-            email: email,
-            password: senha,
-        };
+function Login({ onLogin, onRegister }: LoginProps) {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
 
-        try {
-            const response = await fetch("http://localhost:3001/user/signin", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(loginData),
-            });
+  async function handleLogin() {
+    const loginData = {
+      email: email,
+      password: senha,
+    };
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Login bem-sucedido:", data);
-                Cookies.set("token", data.token);
-                window.location.reload(); // Recarrega a página
-            } else {
-                const errorData = await response.json();
-                setError(errorData.error || "Erro desconhecido"); // Define a mensagem de erro
-                console.error("Erro ao fazer login:", errorData.error);
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                setError("Erro de rede: " + error.message); // Define a mensagem de erro
-                console.error("Erro de rede:", error.message);
-            } else {
-                setError("Erro de rede: desconhecido"); // Mensagem padrão para erro desconhecido
-                console.error("Erro de rede desconhecido:", error);
-            }
-        }
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/user/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        Cookies.set("token", data.token);
+        onLogin(data.userName, data.lastName); // Passa o nome e sobrenome para a Navbar
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "Erro desconhecido");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError("Erro de rede: " + error.message);
+      } else {
+        setError("Erro de rede: desconhecido");
+      }
     }
+  }
 
-    return (
-        <div className="">
-            <input
-                type="text"
-                name="email"
-                className="fillBar marginFillBar"
-                placeholder="Email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                name="senha"
-                className="fillBar marginFillBar"
-                placeholder="Senha"
-                id="senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-            />
-            <Button className="buttonEnter marginFillBar" onClick={handleLogin}>Entrar</Button>
-            <Button className="buttonRegister marginFillBar">Cadastrar</Button>
-            {error && <p className="error-message">{error}</p>} {/* Exibe a mensagem de erro */}
-        </div>
-    );
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
+  return (
+    <div className="">
+      <input
+        type="text"
+        name="email"
+        className="fillBar marginFillBar"
+        placeholder="Email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <input
+        type="password"
+        name="senha"
+        className="fillBar marginFillBar"
+        placeholder="Senha"
+        id="senha"
+        value={senha}
+        onChange={(e) => setSenha(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <Button className="buttonEnter marginFillBar" onClick={handleLogin}>
+        Entrar
+      </Button>
+      <Button className="buttonRegister marginFillBar" onClick={onRegister}>
+        Cadastrar
+      </Button>
+      {error && <p className="error-message">{error}</p>}
+    </div>
+  );
 }
 
 export default Login;

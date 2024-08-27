@@ -10,36 +10,40 @@ import React, { useState, useEffect } from "react";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import Sair from "../../../../public/assets/icons/Sair.svg";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 import Cookies from "js-cookie";
 
 function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [showSquare, setShowSquare] = useState(false);
+  const [showLoginSquare, setShowLoginSquare] = useState(false);
+  const [showRegisterSquare, setShowRegisterSquare] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [userName, setUserName] = useState('');
+  const [userLastName, setUserLastName] = useState(''); // Adicione o estado para o sobrenome
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const fetchUserData = async () => {
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      fetchUserData(token);
+    }
+  }, []);
+
+  const fetchUserData = async (token: string) => {
     try {
-      const token = Cookies.get('token');
-  
-      if (!token) {
-        console.error("Token não encontrado nos cookies.");
-        return;
-      }
-  
-      const response = await fetch("http://localhost:3001/user/me", {
+      const response = await fetch("http://localhost:3001/api/auth/user/me", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ token })
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         setUserName(data.name);
+        setUserLastName(data.lastName); // Atualiza o sobrenome
       } else {
         console.error("Failed to fetch user data:", response.statusText);
       }
@@ -48,9 +52,11 @@ function Navbar() {
     }
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  const handleUserLogin = (name: string, lastName: string) => {
+    setUserName(name);
+    setUserLastName(lastName); // Atualiza o sobrenome
+    setShowLoginSquare(false);
+  };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -78,27 +84,49 @@ function Navbar() {
     }, 16.66);
   };
 
-  const handleCloseSquare = () => {
+  const handleCloseLoginSquare = () => {
     setAnimationClass('hide');
     setTimeout(() => {
-      setShowSquare(false);
+      setShowLoginSquare(false);
       setAnimationClass('');
     }, 300);
   };
 
-  const handleShowSquare = () => {
-    setShowSquare(true);
+  const handleCloseRegisterSquare = () => {
+    setAnimationClass('hide');
+    setTimeout(() => {
+      setShowRegisterSquare(false);
+      setAnimationClass('');
+    }, 300);
+  };
+
+  const handleShowLoginSquare = () => {
+    setShowLoginSquare(true);
+    setShowRegisterSquare(false);  // Fecha o quadrado de cadastro se estiver aberto
+  };
+
+  const handleShowRegisterSquare = () => {
+    setShowRegisterSquare(true);
+    setShowLoginSquare(false);  // Fecha o quadrado de login se estiver aberto
+  };
+
+  const handleRegister = () => {
+    console.log('Usuário registrado com sucesso');
+    // Adicione a lógica necessária após o registro aqui
+    // Por exemplo, esconder o formulário de registro
+    setShowRegisterSquare(false);
   };
 
   useEffect(() => {
-    if (showSquare) {
+    if (showLoginSquare || showRegisterSquare) {
       setAnimationClass('show');
     }
-  }, [showSquare]);
+  }, [showLoginSquare, showRegisterSquare]);
 
   const handleSignOut = () => {
     Cookies.remove('token');
-    window.location.reload();
+    setUserName('');
+    setUserLastName(''); // Limpa o sobrenome ao sair
   };
 
   return (
@@ -115,40 +143,70 @@ function Navbar() {
           <Text className="textNavbarAbout">sobre</Text>
           <Text className="textNavbarContact">contato</Text>
           <SearchBar />
-          {!userName && <Button className="buttonLogin textButtonLogin" onClick={handleShowSquare}>login</Button>}
-          <div className="buttonUserWrapper">
-            {userName && (
+          {!userName && (
+            <Button className="buttonLogin textButtonLogin" onClick={handleShowLoginSquare}>
+              login
+            </Button>
+          )}
+          {userName && (
+            <div className="buttonUserWrapper">
               <Button className="buttonUser">
-                <span id="name" onClick={toggleDropdown}>{userName}</span>
+                <span id="name" onClick={toggleDropdown}>{userName} {userLastName}</span> {/* Exibe nome e sobrenome */}
               </Button>
-            )}
-            {showDropdown && (
-              <div className="dropdownMenu">
-                <ul>
-                  <li>Perfil</li>
-                  <li>Configurações</li>
-                  <li onClick={handleSignOut}>Sair</li>
-                </ul>
-              </div>
-            )}
-          </div>
+              {showDropdown && (
+                <div className="dropdownMenu">
+                  <ul>
+                    <li>Perfil</li>
+                    <li>Configurações</li>
+                    <li onClick={handleSignOut}>Sair</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
 
-          {showSquare && (
+          {showLoginSquare && (
             <>
-              <div className={`background-full ${animationClass}`} onClick={handleCloseSquare}></div>
+              <div className={`background-full ${animationClass}`} onClick={handleCloseLoginSquare}></div>
               <div className={`square ${animationClass}`}>
                 <div className="cowLogin1">
                   <div className="rowLogin2">
                     <div className="Logo">
                       <Image src={Logo} alt="Logo" className="styleImgLogo" />
                     </div>
-                    <Button className="buttonClose" onClick={handleCloseSquare}>
+                    <Button className="buttonClose" onClick={handleCloseLoginSquare}>
                       <Image src={Sair} alt="Sair" className="styleImgClose" />
                     </Button>
                   </div>
-                  <Text className="titleLogin colorGreenDark">Entre para ver o melhor do Onlipinion</Text>
+                  <Text className="titleLogin colorGreenDark">
+                    Entre para ver o melhor do Onlipinion
+                  </Text>
                   <div className="rowLogin3">
-                    <Login />
+                    <Login onLogin={handleUserLogin} onRegister={handleShowRegisterSquare} />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {showRegisterSquare && (
+            <>
+              <div className={`background-full ${animationClass}`} onClick={handleCloseRegisterSquare}></div>
+              <div className={`square ${animationClass}`}>
+                <div className="cowLogin1">
+                  <div className="rowLogin2">
+                    <div className="Logo">
+                      <Image src={Logo} alt="Logo" className="styleImgLogo" />
+                    </div>
+                    <Button className="buttonClose" onClick={handleCloseRegisterSquare}>
+                      <Image src={Sair} alt="Sair" className="styleImgClose" />
+                    </Button>
+                  </div>
+                  <Text className="titleLogin colorGreenDark">
+                    Abra uma conta para aproveitar o melhor da Onlipinion
+                  </Text>
+                  <div className="rowLogin3">
+                      <Register onRegister={handleRegister} />
                   </div>
                 </div>
               </div>
