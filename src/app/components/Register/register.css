@@ -1,0 +1,288 @@
+/* Contêiner do quadrado branco */
+.image-preview-container {
+    width: 80px;
+    height: 80px;
+    border: 0px solid #ccc;
+    border-radius: 20px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Pré-visualização da imagem */
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder quando não há imagem selecionada */
+.image-preview-placeholder {
+    font-size: 10px;
+    text-align: center;
+    color: #3CA6A6;
+    background-image: url('../../../../public/assets/icons/Perfil.svg');
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    width: 48px;
+    height: 62px;
+    scale: 70%;
+}
+
+/* Botão personalizado para upload de imagem */
+.custom-file-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.custom-file-button:hover {
+    background-color: #45a049;
+}
+
+.row0 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.row1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.row2 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.row3 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    margin-left: 10px;
+    justify-content: space-between;
+}
+
+.row4 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.row5 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.row6 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.row7 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.textInformationRegister {
+    text-align: left;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: normal;
+    text-align: center;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.marginFillBarName {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.marginFillBarLastname {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.marginFillBarEmail {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.marginFillBarDateOfBirth {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.marginFillBarPassword {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.marginFillBarRegister {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.marginFillBarTextInformation {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.marginFillBarImage {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fillBarNameRegister {
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #3CA6A6;
+    border-radius: 100px;
+    outline: none;
+    background-color: #EBEEF0;
+    color: #3CA6A6;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu';
+    align-items: center;
+    display: flex;
+}
+
+.fillBarNameRegister::placeholder {
+    color: #3CA6A6;
+    align-items: center;
+}
+
+.fillBarLastnameRegister {
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #3CA6A6;
+    border-radius: 100px;
+    outline: none;
+    background-color: #EBEEF0;
+    color: #3CA6A6;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu';
+    align-items: center;
+    display: flex;
+}
+
+.fillBarLastnameRegister::placeholder {
+    color: #3CA6A6;
+    align-items: center;
+}
+
+.fillBarEmailRegister {
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #3CA6A6;
+    border-radius: 100px;
+    outline: none;
+    background-color: #EBEEF0;
+    color: #3CA6A6;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu';
+    align-items: center;
+    display: flex;
+}
+
+.fillBarEmailRegister::placeholder {
+    color: #3CA6A6;
+    align-items: center;
+}
+
+.fillBarPasswordRegister {
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #3CA6A6;
+    border-radius: 100px;
+    outline: none;
+    background-color: #EBEEF0;
+    color: #3CA6A6;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu';
+    align-items: center;
+    display: flex;
+}
+
+.fillBarPasswordRegister::placeholder {
+    color: #3CA6A6;
+    align-items: center;
+}
+
+.fillBarDateOfBirthRegister {
+    width: 30%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #3CA6A6;
+    border-radius: 100px;
+    outline: none;
+    background-color: #EBEEF0;
+    color: #3CA6A6;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu';
+    align-items: center;
+    display: flex;
+}
+
+.fillBarDateOfBirthRegister::placeholder {
+    color: #3CA6A6;
+    align-items: center;
+}

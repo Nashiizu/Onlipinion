@@ -77,10 +77,57 @@ a {
     transition: opacity 0.5s ease;
 }
 
+.squareLogin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.squareRegister {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 500px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+
+
 /* Estilo específico para o quadrado de login */
 .square.login {
     /* Estilos adicionais para o quadrado de login */
     padding: 20px;
+    width: 700px;
 }
 
 /* Estilo específico para o quadrado de cadastro */
@@ -99,6 +146,16 @@ a {
     opacity: 0;
 }
 
+.cowRegister1 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50px;
+}
+
 .cowLogin1 {
     display: flex;
     align-items: center;
@@ -107,6 +164,20 @@ a {
     flex-direction: column;
     justify-content: space-between;
     padding: 50px;
+}
+
+.rowRegister1 {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rowRegister2 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .rowLogin2 {
@@ -155,6 +226,7 @@ a {
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+    margin-top: 45px;
 }
 
 .dropdownMenu ul {
@@ -171,4 +243,46 @@ a {
 .dropdownMenu li:hover {
     background-color: #3CA6A6;
     border-radius: 10px;
+}
+
+.titleRegister {
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    width: 100%;
+}
+
+.marginTextRegister {
+    margin: 10px;
+}
+
+.userImage {
+    width: 35px; /* Certifique-se de que a largura é igual à altura */
+    height: 35px; /* Certifique-se de que a altura é igual à largura */
+    border-radius: 50%; /* Garante que a imagem fique redonda */
+    object-fit: cover; /* Garante que a imagem preencha o container sem distorções */
+    border: none; /* Remove qualquer borda ao redor da imagem */
+}
+
+.imageLogin {
+    width: 100%; /* Largura da imagem */
+    height: 100%; /* Altura da imagem */
+}
+
+.informationLogin {
+    width: 100%; /* Largura da imagem */
+    height: 100%; /* Altura da imagem */
+    margin-left: 10px;
+}
+
+.areaLogin {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
 }

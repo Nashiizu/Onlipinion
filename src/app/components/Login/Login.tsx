@@ -4,7 +4,7 @@ import "./login.css";
 import Button from "../Button/Button";
 
 interface LoginProps {
-  onLogin: (name: string, lastName: string) => void; // Atualize para incluir o sobrenome
+  onLogin: (name: string, lastName: string, imageUrl: string | null) => void;
   onRegister: () => void;
 }
 
@@ -30,8 +30,9 @@ function Login({ onLogin, onRegister }: LoginProps) {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Login data:", data); // Verifica os dados retornados
         Cookies.set("token", data.token);
-        onLogin(data.userName, data.lastName); // Passa o nome e sobrenome para a Navbar
+        onLogin(data.userName, data.lastName, data.imageUrl); // Passa os dados para o Navbar
       } else {
         const errorData = await response.json();
         setError(errorData.error || "Erro desconhecido");

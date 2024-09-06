@@ -20,7 +20,8 @@ function Navbar() {
   const [showRegisterSquare, setShowRegisterSquare] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [userName, setUserName] = useState('');
-  const [userLastName, setUserLastName] = useState(''); // Adicione o estado para o sobrenome
+  const [userLastName, setUserLastName] = useState('');
+  const [userImage, setUserImage] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
@@ -42,8 +43,10 @@ function Navbar() {
 
       if (response.ok) {
         const data = await response.json();
-        setUserName(data.name);
-        setUserLastName(data.lastName); // Atualiza o sobrenome
+        setUserName(data.userName); // Corrigido para refletir a propriedade correta
+        setUserLastName(data.lastName);
+        setUserImage(data.imageUrl ? `http://localhost:3001${data.imageUrl}` : null); // Corrigido para garantir URL completa
+        console.log('User Image URL:', data.imageUrl); // Verifica a URL da imagem
       } else {
         console.error("Failed to fetch user data:", response.statusText);
       }
@@ -52,9 +55,11 @@ function Navbar() {
     }
   };
 
-  const handleUserLogin = (name: string, lastName: string) => {
+  const handleUserLogin = (name: string, lastName: string, imageUrl: string | null) => {
     setUserName(name);
-    setUserLastName(lastName); // Atualiza o sobrenome
+    setUserLastName(lastName);
+    setUserImage(imageUrl ? `http://localhost:3001${imageUrl}` : null); // Corrigido para garantir URL completa
+    console.log('User Image URL:', imageUrl); // Verifica a URL da imagem
     setShowLoginSquare(false);
   };
 
@@ -102,18 +107,16 @@ function Navbar() {
 
   const handleShowLoginSquare = () => {
     setShowLoginSquare(true);
-    setShowRegisterSquare(false);  // Fecha o quadrado de cadastro se estiver aberto
+    setShowRegisterSquare(false);
   };
 
   const handleShowRegisterSquare = () => {
     setShowRegisterSquare(true);
-    setShowLoginSquare(false);  // Fecha o quadrado de login se estiver aberto
+    setShowLoginSquare(false);
   };
 
   const handleRegister = () => {
     console.log('Usuário registrado com sucesso');
-    // Adicione a lógica necessária após o registro aqui
-    // Por exemplo, esconder o formulário de registro
     setShowRegisterSquare(false);
   };
 
@@ -126,7 +129,8 @@ function Navbar() {
   const handleSignOut = () => {
     Cookies.remove('token');
     setUserName('');
-    setUserLastName(''); // Limpa o sobrenome ao sair
+    setUserLastName('');
+    setUserImage(null); // Limpa a imagem ao sair
   };
 
   return (
@@ -150,8 +154,27 @@ function Navbar() {
           )}
           {userName && (
             <div className="buttonUserWrapper">
-              <Button className="buttonUser">
-                <span id="name" onClick={toggleDropdown}>{userName} {userLastName}</span> {/* Exibe nome e sobrenome */}
+              <Button className="buttonUser" onClick={toggleDropdown}>
+                <div className="areaLogin">
+                  <div className="imageLogin">
+                    {userImage ? (
+                      <>
+                        <Image
+                          src={userImage}
+                          alt="User Image"
+                          className="userImage"
+                          width={35}
+                          height={35}
+                          quality={100}
+                          objectFit="cover"
+                        />
+                      </>
+                    ) : null}
+                  </div>
+                  <div className="informationLogin">
+                    <span id="name">{userName} {userLastName}</span>
+                  </div>
+                </div>
               </Button>
               {showDropdown && (
                 <div className="dropdownMenu">
@@ -164,11 +187,10 @@ function Navbar() {
               )}
             </div>
           )}
-
           {showLoginSquare && (
             <>
               <div className={`background-full ${animationClass}`} onClick={handleCloseLoginSquare}></div>
-              <div className={`square ${animationClass}`}>
+              <div className={`squareLogin ${animationClass}`}>
                 <div className="cowLogin1">
                   <div className="rowLogin2">
                     <div className="Logo">
@@ -188,13 +210,12 @@ function Navbar() {
               </div>
             </>
           )}
-
           {showRegisterSquare && (
             <>
               <div className={`background-full ${animationClass}`} onClick={handleCloseRegisterSquare}></div>
-              <div className={`square ${animationClass}`}>
-                <div className="cowLogin1">
-                  <div className="rowLogin2">
+              <div className={`squareRegister ${animationClass}`}>
+                <div className="cowRegister1">
+                  <div className="rowRegister1">
                     <div className="Logo">
                       <Image src={Logo} alt="Logo" className="styleImgLogo" />
                     </div>
@@ -202,11 +223,11 @@ function Navbar() {
                       <Image src={Sair} alt="Sair" className="styleImgClose" />
                     </Button>
                   </div>
-                  <Text className="titleLogin colorGreenDark">
+                  <Text className="titleRegister colorGreenDark">
                     Abra uma conta para aproveitar o melhor da Onlipinion
                   </Text>
-                  <div className="rowLogin3">
-                      <Register onRegister={handleRegister} />
+                  <div className="rowRegister2">
+                    <Register onRegister={handleRegister} />
                   </div>
                 </div>
               </div>

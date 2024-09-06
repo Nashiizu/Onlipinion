@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import "./register.css";
-import Cookies from "js-cookie";
-
+import Button from "../Button/Button";
+import Text from '../Text/Text';
 interface RegisterProps {
-    onRegister: () => void; // Apenas a função para registrar
+    onRegister: () => void;
 }
 
 function Register({ onRegister }: RegisterProps) {
@@ -12,30 +12,46 @@ function Register({ onRegister }: RegisterProps) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [nascimento, setNascimento] = useState("");
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [error, setError] = useState("");
 
-    // Função para lidar com o registro
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setSelectedImage(file);
+            setPreviewImage(URL.createObjectURL(file));
+        }
+    };
+
+    const handleButtonClick = () => {
+        const fileInput = document.getElementById('hidden-file-input');
+        if (fileInput) {
+            fileInput.click();
+        }
+    };
+
     async function handleRegister() {
-        const registerData = {
-            name: nome,           // mapeia "nome" para "name"
-            lastName: sobrenome,  // mapeia "sobrenome" para "lastName"
-            email,
-            password: senha,      // mapeia "senha" para "password"
-            dateOfBirth: nascimento, // mapeia "nascimento" para "dateOfBirth"
-        };
-    
+        const formData = new FormData();
+        formData.append("name", nome);
+        formData.append("lastName", sobrenome);
+        formData.append("email", email);
+        formData.append("password", senha);
+        formData.append("dateOfBirth", nascimento);
+
+        if (selectedImage) {
+            formData.append("image", selectedImage);
+        }
+
         try {
             const response = await fetch("http://localhost:3001/api/auth/user/signup", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(registerData),
+                body: formData,
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
-                onRegister(); // Chama a função onRegister após o registro
+                onRegister();
             } else {
                 const errorData = await response.json();
                 setError(errorData.error || "Erro desconhecido");
@@ -48,58 +64,94 @@ function Register({ onRegister }: RegisterProps) {
             }
         }
     }
-    
+
     return (
         <div className="">
+            <div className="row0">
+                <div className="row1">
+                    <div className="row2">
+                        <div className="row4">
+                            <input
+                                type="text"
+                                name="nome"
+                                className="fillBarNameRegister marginFillBarName"
+                                placeholder="Nome"
+                                id="nome"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                name="sobrenome"
+                                className="fillBarLastnameRegister marginFillBarLastname"
+                                placeholder="Sobrenome"
+                                id="sobrenome"
+                                value={sobrenome}
+                                onChange={(e) => setSobrenome(e.target.value)}
+                            />
+                        </div>
+                        <div className="row5">
+                            <input
+                                type="text"
+                                name="email"
+                                className="fillBarEmailRegister marginFillBarEmail"
+                                placeholder="Email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="row6">
+                            <input
+                                type="password"
+                                name="senha"
+                                className="fillBarPasswordRegister marginFillBarPassword"
+                                placeholder="Senha"
+                                id="senha"
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                            />
+                            <input
+                                type="date"
+                                name="nascimento"
+                                className="fillBarDateOfBirthRegister marginFillBarDateOfBirth"
+                                placeholder="Data de Nascimento"
+                                id="nascimento"
+                                value={nascimento}
+                                onChange={(e) => setNascimento(e.target.value)}
+                            />
+                        </div>
+                        <div className="row7">
+                            <Button className="buttonRegister marginFillBarRegister" onClick={handleRegister}>
+                                Cadastrar
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="row3">
+                        <div className="image-preview-container marginFillBar">
+                            {previewImage ? (
+                                <img src={previewImage} alt="Pré-visualização" className="image-preview" />
+                            ) : (
+                                <p className="image-preview-placeholder"></p>
+                            )}
+                        </div>
+                        <Text className="textInformationRegister colorGreenLight marginFillBarTextInformation">Recomendamos fotos de qualidade e grande tamanho</Text>
+
+                        <Button className="buttonImage marginFillBarImage" onClick={handleButtonClick}>
+                            Foto
+                        </Button>
+
+                    </div>
+                </div>
+                {error && <p className="error-message">{error}</p>}
+            </div>
             <input
-                type="text"
-                name="nome"
-                className="fillBar marginFillBar"
-                placeholder="Nome"
-                id="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                type="file"
+                id="hidden-file-input"
+                style={{ display: 'none' }}
+                accept="image/*"
+                onChange={handleImageChange}
             />
-            <input
-                type="text"
-                name="sobrenome"
-                className="fillBar marginFillBar"
-                placeholder="Sobrenome"
-                id="sobrenome"
-                value={sobrenome}
-                onChange={(e) => setSobrenome(e.target.value)}
-            />
-            <input
-                type="text"
-                name="email"
-                className="fillBar marginFillBar"
-                placeholder="Email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                name="senha"
-                className="fillBar marginFillBar"
-                placeholder="Senha"
-                id="senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-            />
-            <input
-                type="date"
-                name="nascimento"
-                className="fillBar marginFillBar"
-                placeholder="Data de Nascimento"
-                id="nascimento"
-                value={nascimento}
-                onChange={(e) => setNascimento(e.target.value)}
-            />
-            <button className="buttonRegister marginFillBar" onClick={handleRegister}>
-                Cadastrar
-            </button>
-            {error && <p className="error-message">{error}</p>}
         </div>
     );
 }
